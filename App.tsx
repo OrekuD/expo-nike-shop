@@ -9,7 +9,6 @@ export default function App() {
     OswaldR: require("./assets/fonts/Oswald-Regular.ttf"),
     OswaldB: require("./assets/fonts/Oswald-Medium.ttf"),
     OswaldL: require("./assets/fonts/Oswald-Light.ttf"),
-    OswaldEL: require("./assets/fonts/Oswald-ExtraLight.ttf"),
   });
 
   if (!fontsLoaded) {
