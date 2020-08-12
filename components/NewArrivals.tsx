@@ -3,6 +3,8 @@ import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { width } from "../constants/Layout";
 import Text from "./Text";
 import { palewhite, lightblue } from "../constants/Colors";
+import Card from "./Card";
+import { StackScreenProps } from "@react-navigation/stack";
 
 interface NewArrivalsProps {}
 
@@ -21,7 +23,7 @@ const slides = [
 const ITEM_WIDTH = width * 0.5;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
-const NewArrivals = (props: NewArrivalsProps) => {
+const NewArrivals = ({ navigation }: StackScreenProps<{}>) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
@@ -60,29 +62,12 @@ const NewArrivals = (props: NewArrivalsProps) => {
 
           if (id) {
             return (
-              <Animated.View
+              <Card
                 key={id}
-                style={{ ...styles.slide, transform: [{ scale }] }}
-              >
-                <View style={styles.imageContainer}>
-                  <Animated.Image
-                    source={require("../assets/images/1.jpg")}
-                    resizeMode="contain"
-                    style={{ ...styles.image, opacity }}
-                  />
-                </View>
-                <View style={styles.slideContent}>
-                  <Text text="Nike Zoom Fly" variant="subtitle" />
-                  <Text text="199.99" variant="subtitle" price />
-                  <TouchableOpacity style={styles.button}>
-                    <Text
-                      text="Add to cart"
-                      variant="tiny"
-                      style={{ color: "white" }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </Animated.View>
+                navigation={navigation}
+                scale={scale}
+                opacity={opacity}
+              />
             );
           } else {
             return <View key={key} style={{ width: SPACER_WIDTH }} />;
@@ -99,35 +84,5 @@ const styles = StyleSheet.create({
   title: {
     paddingLeft: 20,
     marginVertical: 10,
-  },
-  slide: {
-    width: ITEM_WIDTH,
-    height: ITEM_WIDTH * 1.5,
-    backgroundColor: palewhite,
-    borderRadius: BORDER_RADIUS,
-    overflow: "hidden",
-  },
-  imageContainer: {
-    width: "100%",
-    height: "60%",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  slideContent: {
-    width: "100%",
-    height: "40%",
-    justifyContent: "space-between",
-    paddingLeft: 20,
-  },
-  button: {
-    width: "70%",
-    height: "45%",
-    borderTopLeftRadius: BORDER_RADIUS,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: lightblue,
-    alignSelf: "flex-end",
   },
 });

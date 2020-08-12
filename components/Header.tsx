@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { width } from "../constants/Layout";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 import { blue, lightblue } from "../constants/Colors";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface HeaderProps {
   home?: boolean;
@@ -12,20 +12,39 @@ interface HeaderProps {
 const Header = ({ home }: HeaderProps) => {
   return (
     <View style={styles.container}>
-      <BorderlessButton style={styles.menu}>
-        <View style={styles.row}>
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-        </View>
-        <View style={styles.row}>
-          <View style={styles.dot} />
-          <View style={styles.dot} />
-        </View>
-      </BorderlessButton>
-      <Text>Header</Text>
-      <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>
-        <Feather name="shopping-bag" size={30} color={lightblue} />
-      </BorderlessButton>
+      {home ? (
+        <BorderlessButton style={styles.menu}>
+          <View style={styles.row}>
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+          </View>
+          <View style={styles.row}>
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+          </View>
+        </BorderlessButton>
+      ) : (
+        <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            color={lightblue}
+            size={30}
+          />
+        </BorderlessButton>
+      )}
+      {home && <Text>Header</Text>}
+      <View style={{ flexDirection: "row" }}>
+        {!home && (
+          <BorderlessButton
+            style={{ ...styles.menu, alignItems: "center", marginRight: 20 }}
+          >
+            <Feather name="shopping-bag" size={30} color={lightblue} />
+          </BorderlessButton>
+        )}
+        <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>
+          <Feather name="shopping-bag" size={30} color={lightblue} />
+        </BorderlessButton>
+      </View>
     </View>
   );
 };
