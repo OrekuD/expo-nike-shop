@@ -12,26 +12,34 @@ interface CardProps {
 }
 const BORDER_RADIUS = 20;
 const ITEM_WIDTH = width * 0.5;
-const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
 const Card = ({ navigation, scale, opacity }: CardProps) => {
   return (
-    <Animated.View style={{ ...styles.slide, transform: [{ scale }] }}>
-      <View style={styles.imageContainer}>
-        <Animated.Image
-          source={require("../assets/images/1.jpg")}
-          resizeMode="contain"
-          style={{ ...styles.image, opacity }}
-        />
-      </View>
-      <View style={styles.slideContent}>
-        <Text text="Nike Zoom Fly" variant="subtitle" />
-        <Text text="199.99" variant="subtitle" price />
-        <TouchableOpacity style={styles.button}>
-          <Text text="Add to cart" variant="tiny" style={{ color: "white" }} />
-        </TouchableOpacity>
-      </View>
-    </Animated.View>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() => navigation.navigate("Product")}
+    >
+      <Animated.View style={{ ...styles.slide, transform: [{ scale }] }}>
+        <View style={styles.imageContainer}>
+          <Animated.Image
+            source={require("../assets/images/1.jpg")}
+            resizeMode="contain"
+            style={{ ...styles.image, opacity }}
+          />
+        </View>
+        <View style={styles.slideContent}>
+          <Text text="Nike Zoom Fly" variant="subtitle" />
+          <Text text="199.99" variant="subtitle" price />
+          <TouchableOpacity style={styles.button}>
+            <Text
+              text="Add to cart"
+              variant="tiny"
+              style={{ color: "white" }}
+            />
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
   );
 };
 

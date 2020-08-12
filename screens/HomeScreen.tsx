@@ -5,17 +5,16 @@ import { Header, Text, NewArrivals, UpcomingSneakers } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width } from "../constants/Layout";
 import { RectButton } from "react-native-gesture-handler";
+import { StackScreenProps } from "@react-navigation/stack";
 
-interface HomeScreenProps {}
-
-const HomeScreen = (props: HomeScreenProps) => {
+const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
   const { top: paddingTop } = useSafeAreaInsets();
   return (
     <View style={{ ...styles.container, paddingTop }}>
       <View style={{ flex: 1, backgroundColor: "rgba(255, 255, 255, 0)" }}>
-        <Header home />
+        <Header home navigation={navigation} />
         <View style={{}}>
-          <NewArrivals />
+          <NewArrivals navigation={navigation} />
         </View>
         <View style={{ marginTop: 20 }}>
           <UpcomingSneakers />

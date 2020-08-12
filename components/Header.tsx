@@ -3,10 +3,12 @@ import { Text, View, StyleSheet } from "react-native";
 import { width } from "../constants/Layout";
 import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 import { blue, lightblue } from "../constants/Colors";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 interface HeaderProps {
   home?: boolean;
+  navigation: StackNavigationProp<{}>;
 }
 
 const Header = ({ home }: HeaderProps) => {
@@ -28,17 +30,17 @@ const Header = ({ home }: HeaderProps) => {
           <MaterialCommunityIcons
             name="chevron-left"
             color={lightblue}
-            size={30}
+            size={40}
           />
         </BorderlessButton>
       )}
-      {home && <Text>Header</Text>}
+      {home && <Text>Nike</Text>}
       <View style={{ flexDirection: "row" }}>
         {!home && (
           <BorderlessButton
             style={{ ...styles.menu, alignItems: "center", marginRight: 20 }}
           >
-            <Feather name="shopping-bag" size={30} color={lightblue} />
+            <Ionicons name="md-heart" color="#FF0707" size={34} />
           </BorderlessButton>
         )}
         <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>

@@ -4,9 +4,7 @@ import { width } from "../constants/Layout";
 import Text from "./Text";
 import { palewhite, lightblue } from "../constants/Colors";
 import Card from "./Card";
-import { StackScreenProps } from "@react-navigation/stack";
-
-interface NewArrivalsProps {}
+import { StackScreenProps, StackNavigationProp } from "@react-navigation/stack";
 
 const BORDER_RADIUS = 20;
 
@@ -23,7 +21,11 @@ const slides = [
 const ITEM_WIDTH = width * 0.5;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
-const NewArrivals = ({ navigation }: StackScreenProps<{}>) => {
+interface NewArrivalsProps {
+  navigation: StackNavigationProp<{}>;
+}
+
+const NewArrivals = ({ navigation }: NewArrivalsProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
@@ -61,14 +63,7 @@ const NewArrivals = ({ navigation }: StackScreenProps<{}>) => {
           });
 
           if (id) {
-            return (
-              <Card
-                key={id}
-                navigation={navigation}
-                scale={scale}
-                opacity={opacity}
-              />
-            );
+            return <Card key={id} {...{ navigation, scale, opacity }} />;
           } else {
             return <View key={key} style={{ width: SPACER_WIDTH }} />;
           }
