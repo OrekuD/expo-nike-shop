@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { pink, blue, palewhite, lightblue } from "../constants/Colors";
-import { Header, Text, NewArrivals } from "../components";
+import { Header, Text, NewArrivals, UpcomingSneakers } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width } from "../constants/Layout";
 import { RectButton } from "react-native-gesture-handler";
@@ -18,7 +18,7 @@ const HomeScreen = (props: HomeScreenProps) => {
           <NewArrivals />
         </View>
         <View style={{ marginTop: 20 }}>
-          <NewArrivals />
+          <UpcomingSneakers />
         </View>
       </View>
       <View style={styles.background}>

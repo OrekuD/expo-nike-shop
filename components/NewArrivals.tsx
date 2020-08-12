@@ -25,7 +25,8 @@ const NewArrivals = (props: NewArrivalsProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
-    <View style={styles.container}>
+    <View>
+      <Text text="New arrivals" variant="subtitle" style={styles.title} />
       <Animated.FlatList
         data={slides}
         horizontal
@@ -95,8 +96,10 @@ const NewArrivals = (props: NewArrivalsProps) => {
 export default NewArrivals;
 
 const styles = StyleSheet.create({
-  container: {},
-
+  title: {
+    paddingLeft: 20,
+    marginVertical: 10,
+  },
   slide: {
     width: ITEM_WIDTH,
     height: ITEM_WIDTH * 1.5,

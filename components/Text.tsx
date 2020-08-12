@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Text as RNText, View, StyleSheet, TextStyle } from "react-native";
+import { lightblue } from "../constants/Colors";
 
 interface TextProps {
   text: string | number;
@@ -41,18 +42,22 @@ const styles = StyleSheet.create({
     fontFamily: "OswaldB",
     fontSize: 30,
     marginVertical: 10,
+    color: lightblue,
   },
   default: {
     fontFamily: "OswaldR",
     fontSize: 20,
+    color: lightblue,
   },
   tiny: {
     fontFamily: "OswaldB",
     fontSize: 16,
+    color: lightblue,
   },
   subtitle: {
     fontFamily: "OswaldB",
-    fontSize: 20,
+    fontSize: 22,
+    color: lightblue,
   },
 });
 
