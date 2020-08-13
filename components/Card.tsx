@@ -16,7 +16,7 @@ const ITEM_WIDTH = width * 0.5;
 const Card = ({ navigation, scale, opacity }: CardProps) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={0.9}
       onPress={() => navigation.navigate("Product")}
     >
       <Animated.View style={{ ...styles.slide, transform: [{ scale }] }}>

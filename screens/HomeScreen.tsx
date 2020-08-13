@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
     <View style={{ ...styles.container, paddingTop }}>
       <View style={{ flex: 1, backgroundColor: "rgba(255, 255, 255, 0)" }}>
         <Header home navigation={navigation} />
-        <View style={{}}>
+        <View style={{ marginVertical: 10 }}>
           <NewArrivals navigation={navigation} />
         </View>
         <View style={{ marginTop: 20 }}>

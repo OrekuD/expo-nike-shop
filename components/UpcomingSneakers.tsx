@@ -23,19 +23,25 @@ const UpcomingSneakers = (props: UpcomingSneakersProps) => {
 
   return (
     <View style={styles.container}>
-      <Text text="Upcoming Sneakers" variant="subtitle" />
+      <Text
+        text="Upcoming Sneakers"
+        variant="subtitle"
+        style={{ marginLeft: 20 }}
+      />
       <Animated.FlatList
         data={slides}
         horizontal
         contentContainerStyle={{
           alignItems: "center",
-          paddingRight: 30,
           marginVertical: 15,
         }}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item: { id } }) => {
+        renderItem={({ item: { id }, index }) => {
           return (
-            <Animated.View key={id} style={{ ...styles.slide }}>
+            <Animated.View
+              key={id}
+              style={{ ...styles.slide, marginLeft: index === 0 ? 20 : 0 }}
+            >
               <Text text="OCT 15" variant="subtitle" style={{ margin: 5 }} />
               <View style={styles.imageContainer}>
                 <Animated.Image
@@ -56,7 +62,6 @@ export default UpcomingSneakers;
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 20,
     marginVertical: 10,
   },
   slide: {

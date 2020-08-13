@@ -5,13 +5,14 @@ import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 import { blue, lightblue } from "../constants/Colors";
 import { Feather, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Nike from "../svg/Nike";
 
 interface HeaderProps {
   home?: boolean;
   navigation: StackNavigationProp<{}>;
 }
 
-const Header = ({ home }: HeaderProps) => {
+const Header = ({ home, navigation }: HeaderProps) => {
   return (
     <View style={styles.container}>
       {home ? (
@@ -26,7 +27,10 @@ const Header = ({ home }: HeaderProps) => {
           </View>
         </BorderlessButton>
       ) : (
-        <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>
+        <BorderlessButton
+          onPress={navigation.goBack}
+          style={{ ...styles.menu, alignItems: "center" }}
+        >
           <MaterialCommunityIcons
             name="chevron-left"
             color={lightblue}
@@ -34,7 +38,7 @@ const Header = ({ home }: HeaderProps) => {
           />
         </BorderlessButton>
       )}
-      {home && <Text>Nike</Text>}
+      {home && <Nike size={60} />}
       <View style={{ flexDirection: "row" }}>
         {!home && (
           <BorderlessButton
