@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: palewhite,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
   image: {
     width: "80%",
