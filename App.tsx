@@ -3,6 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import MainNavigation from "./navigation/Navigation";
+import { Provider } from "./context/Context";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -20,8 +21,10 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <MainNavigation />
-    </SafeAreaProvider>
+    <Provider>
+      <SafeAreaProvider>
+        <MainNavigation />
+      </SafeAreaProvider>
+    </Provider>
   );
 }

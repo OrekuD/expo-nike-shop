@@ -9,10 +9,11 @@ import Nike from "../svg/Nike";
 
 interface HeaderProps {
   home?: boolean;
+  cart?: boolean;
   navigation: StackNavigationProp<{}>;
 }
 
-const Header = ({ home, navigation }: HeaderProps) => {
+const Header = ({ home, navigation, cart }: HeaderProps) => {
   return (
     <View style={styles.container}>
       {home ? (
@@ -38,19 +39,24 @@ const Header = ({ home, navigation }: HeaderProps) => {
           />
         </BorderlessButton>
       )}
-      {home && <Nike size={60} />}
-      <View style={{ flexDirection: "row" }}>
-        {!home && (
+      {home && <Nike size={50} />}
+      {!cart && (
+        <View style={{ flexDirection: "row" }}>
+          {!home && (
+            <BorderlessButton
+              style={{ ...styles.menu, alignItems: "center", marginRight: 20 }}
+            >
+              <Ionicons name="md-heart" color="#FF0707" size={30} />
+            </BorderlessButton>
+          )}
           <BorderlessButton
-            style={{ ...styles.menu, alignItems: "center", marginRight: 20 }}
+            onPress={() => navigation.navigate("Cart")}
+            style={{ ...styles.menu, alignItems: "center" }}
           >
-            <Ionicons name="md-heart" color="#FF0707" size={34} />
+            <Feather name="shopping-bag" size={26} color={lightblue} />
           </BorderlessButton>
-        )}
-        <BorderlessButton style={{ ...styles.menu, alignItems: "center" }}>
-          <Feather name="shopping-bag" size={30} color={lightblue} />
-        </BorderlessButton>
-      </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -67,8 +73,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   menu: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     justifyContent: "space-evenly",
   },
   row: {
@@ -77,8 +83,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   dot: {
-    width: 8,
-    height: 8,
+    width: 6,
+    height: 6,
     borderRadius: 4,
     backgroundColor: lightblue,
   },

@@ -6,6 +6,7 @@ import Text from "./Text";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ProductObj } from "../types";
 import { IMAGE_BASE_URL } from "../constants/Urls";
+import { useAppContext } from "../context/Context";
 
 interface CardProps {
   navigation: StackNavigationProp<{}>;
@@ -18,6 +19,7 @@ const ITEM_WIDTH = width * 0.5;
 
 const Card = ({ navigation, scale, opacity, item }: CardProps) => {
   const { name, images, price } = item;
+  const { manageCart, isProductInCart } = useAppContext();
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -34,13 +36,31 @@ const Card = ({ navigation, scale, opacity, item }: CardProps) => {
         <View style={styles.slideContent}>
           <Text text={name} variant="subtitle" />
           <Text text={price} variant="subtitle" price />
-          <TouchableOpacity style={styles.button}>
-            <Text
-              text="Add to cart"
-              variant="tiny"
-              style={{ color: "white" }}
-            />
-          </TouchableOpacity>
+          {isProductInCart(item) ? (
+            <TouchableOpacity
+              onPress={() => manageCart("REMOVE_FROM_CART", item)}
+              style={styles.button}
+              activeOpacity={0.8}
+            >
+              <Text
+                text="Remove from cart"
+                variant="tiny"
+                style={{ color: "white" }}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => manageCart("ADD_TO_CART", item)}
+              style={styles.button}
+              activeOpacity={0.8}
+            >
+              <Text
+                text="Add to cart"
+                variant="tiny"
+                style={{ color: "white" }}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </Animated.View>
     </TouchableOpacity>

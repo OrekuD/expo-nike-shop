@@ -5,7 +5,7 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import { HomeStackParamList } from "../types";
-import { HomeScreen, ProductScreen } from "../screens";
+import { HomeScreen, ProductScreen, CartScreen } from "../screens";
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
 
@@ -19,6 +19,7 @@ const HomeNavigation = () => {
     >
       <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen name="Product" component={ProductScreen} />
+      <HomeStack.Screen name="Cart" component={CartScreen} />
     </HomeStack.Navigator>
   );
 };
