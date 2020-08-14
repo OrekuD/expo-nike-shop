@@ -1,10 +1,19 @@
-import React, { useRef } from "react";
-import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
+import React, { useRef, useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Animated,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { width } from "../constants/Layout";
 import Text from "./Text";
 import { palewhite, lightblue } from "../constants/Colors";
 import Card from "./Card";
 import { StackScreenProps, StackNavigationProp } from "@react-navigation/stack";
+import { BASE_URL } from "../constants/Urls";
+import { ProductObj } from "../types";
 
 const BORDER_RADIUS = 20;
 
@@ -27,12 +36,37 @@ interface NewArrivalsProps {
 
 const NewArrivals = ({ navigation }: NewArrivalsProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
+  const [products, setProducts] = useState<Array<ProductObj>>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/shoes`);
+      const data = await response.json();
+      if (data.products.length !== 0) {
+        setProducts([{ key: "first" }, ...data.products, { key: "last" }]);
+      }
+    } catch (error) {
+      Alert.alert("Error");
+    }
+  };
+
+  if (products.length === 0) {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color="#121212" />
+      </View>
+    );
+  }
 
   return (
     <View>
       <Text text="New arrivals" variant="subtitle" style={styles.title} />
       <Animated.FlatList
-        data={slides}
+        data={products}
         horizontal
         contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}
@@ -43,7 +77,8 @@ const NewArrivals = ({ navigation }: NewArrivalsProps) => {
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
           { useNativeDriver: false }
         )}
-        renderItem={({ item: { id, key }, index }) => {
+        renderItem={({ item, index }) => {
+          const { id, key } = item;
           const inputRange = [
             (index - 2) * ITEM_WIDTH,
             (index - 1) * ITEM_WIDTH,
@@ -63,7 +98,7 @@ const NewArrivals = ({ navigation }: NewArrivalsProps) => {
           });
 
           if (id) {
-            return <Card key={id} {...{ navigation, scale, opacity }} />;
+            return <Card key={id} {...{ navigation, scale, opacity, item }} />;
           } else {
             return <View key={key} style={{ width: SPACER_WIDTH }} />;
           }

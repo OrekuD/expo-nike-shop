@@ -13,6 +13,14 @@ export type HomeStackParamList = {
   Product: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
+export interface ProductObj {
+  id: string;
+  name: string;
+  images: Array<{
+    id: string;
+    source: string;
+    color?: string;
+  }>;
+  price: number;
+  description?: string;
+}

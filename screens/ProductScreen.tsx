@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width, height } from "../constants/Layout";
 import { palewhite, blue } from "../constants/Colors";
 import { RectButton } from "react-native-gesture-handler";
+import { IMAGE_BASE_URL } from "../constants/Urls";
 
 interface ProductScreenProps {}
 
@@ -20,37 +21,39 @@ const sizes = [7.5, 8, 8.5, 9, 9.5];
 const SIZE = width * 0.135;
 const IMAGE_THUMBNAIL_SIZE = width * 0.25;
 
-const images = [
-  { id: String(Math.random()), image: require("../assets/images/2.jpg") },
-  { id: String(Math.random()), image: require("../assets/images/img-2.jpg") },
-  { id: String(Math.random()), image: require("../assets/images/img-3.jpg") },
-  { id: String(Math.random()), image: require("../assets/images/img-4.jpg") },
-  { id: String(Math.random()), image: require("../assets/images/img-5.jpg") },
-];
+// const images = [
+//   { id: String(Math.random()), image: require("../assets/images/2.jpg") },
+//   { id: String(Math.random()), image: require("../assets/images/img-2.jpg") },
+//   { id: String(Math.random()), image: require("../assets/images/img-3.jpg") },
+//   { id: String(Math.random()), image: require("../assets/images/img-4.jpg") },
+//   { id: String(Math.random()), image: require("../assets/images/img-5.jpg") },
+// ];
 
-const ProductScreen = ({ navigation }: StackScreenProps<{}>) => {
+const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
   const { top: paddingTop } = useSafeAreaInsets();
   const [activeSizeIndex, setActiveSizeIndex] = useState<number>(3);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
-  const [activeImages, setActiveImages] = useState([images[0]]);
-
+  const { item } = route.params;
+  const { name, price, description, images } = item;
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ ...styles.container, paddingTop }}>
         <Header navigation={navigation} />
         <View style={styles.imageContainer}>
           <Image
-            source={images[activeImageIndex].image}
+            source={{
+              uri: `${IMAGE_BASE_URL + images[activeImageIndex].source}`,
+            }}
             resizeMode="contain"
             style={styles.image}
           />
         </View>
         <View style={{ paddingHorizontal: 15 }}>
           <View style={styles.row}>
-            <Text text="React Infinity Run Flyknit" variant="subtitle" />
+            <Text text={name} variant="subtitle" />
             <Rating rating={4} />
           </View>
-          <Text text="Esse aliquip cupidatat cillum laboris nulla eiusmod laboris. Tempor elit aute et cillum mollit laborum minim." />
+          <Text text={description} />
           <Text text="Size" variant="subtitle" style={{ marginVertical: 10 }} />
           <View
             style={{
@@ -87,7 +90,7 @@ const ProductScreen = ({ navigation }: StackScreenProps<{}>) => {
             keyExtractor={({ id }) => id}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item: { image }, index }) => {
+            renderItem={({ item: { source }, index }) => {
               return (
                 <TouchableOpacity
                   style={{
@@ -98,7 +101,9 @@ const ProductScreen = ({ navigation }: StackScreenProps<{}>) => {
                   onPress={() => setActiveImageIndex(index)}
                 >
                   <Image
-                    source={image}
+                    source={{
+                      uri: `${IMAGE_BASE_URL + source}`,
+                    }}
                     style={styles.imageThumbnail}
                     resizeMode="contain"
                   />

@@ -4,32 +4,36 @@ import { palewhite, lightblue } from "../constants/Colors";
 import { width } from "../constants/Layout";
 import Text from "./Text";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { ProductObj } from "../types";
+import { IMAGE_BASE_URL } from "../constants/Urls";
 
 interface CardProps {
   navigation: StackNavigationProp<{}>;
   scale: Animated.AnimatedInterpolation;
   opacity: Animated.AnimatedInterpolation;
+  item: ProductObj;
 }
 const BORDER_RADIUS = 20;
 const ITEM_WIDTH = width * 0.5;
 
-const Card = ({ navigation, scale, opacity }: CardProps) => {
+const Card = ({ navigation, scale, opacity, item }: CardProps) => {
+  const { name, images, price } = item;
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      onPress={() => navigation.navigate("Product")}
+      onPress={() => navigation.navigate("Product", { item })}
     >
       <Animated.View style={{ ...styles.slide, transform: [{ scale }] }}>
         <View style={styles.imageContainer}>
           <Animated.Image
-            source={require("../assets/images/1.jpg")}
+            source={{ uri: `${IMAGE_BASE_URL + images[0].source}` }}
             resizeMode="contain"
             style={{ ...styles.image, opacity }}
           />
         </View>
         <View style={styles.slideContent}>
-          <Text text="Nike Zoom Fly" variant="subtitle" />
-          <Text text="199.99" variant="subtitle" price />
+          <Text text={name} variant="subtitle" />
+          <Text text={price} variant="subtitle" price />
           <TouchableOpacity style={styles.button}>
             <Text
               text="Add to cart"
