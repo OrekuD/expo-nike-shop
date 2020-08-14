@@ -5,13 +5,15 @@ import Text from "../Text";
 import { useAppContext } from "../../context/Context";
 import { RectButton } from "react-native-gesture-handler";
 import { deepblue, pink } from "../../constants/Colors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface CartFooterProps {}
 
 const CartFooter = (props: CartFooterProps) => {
   const { cartTotal } = useAppContext();
+  const { bottom: paddingBottom } = useSafeAreaInsets();
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, paddingBottom }}>
       <View style={styles.row}>
         <Text text="Total" variant="tiny" />
         <Text text={cartTotal} price variant="title" />
@@ -29,15 +31,15 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     height: 120,
-    // backgroundColor: "red",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     justifyContent: "space-evenly",
     borderTopWidth: 1,
     borderColor: pink,
   },
   row: {
     width: "100%",
-    height: 60,
+    height: 50,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -50,5 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     backgroundColor: deepblue,
+    marginBottom: 5,
   },
 });

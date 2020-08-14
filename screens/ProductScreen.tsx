@@ -14,6 +14,7 @@ import { width, height } from "../constants/Layout";
 import { palewhite, blue } from "../constants/Colors";
 import { RectButton } from "react-native-gesture-handler";
 import { IMAGE_BASE_URL } from "../constants/Urls";
+import { useAppContext } from "../context/Context";
 
 interface ProductScreenProps {}
 
@@ -21,20 +22,14 @@ const sizes = [7.5, 8, 8.5, 9, 9.5];
 const SIZE = width * 0.135;
 const IMAGE_THUMBNAIL_SIZE = width * 0.25;
 
-// const images = [
-//   { id: String(Math.random()), image: require("../assets/images/2.jpg") },
-//   { id: String(Math.random()), image: require("../assets/images/img-2.jpg") },
-//   { id: String(Math.random()), image: require("../assets/images/img-3.jpg") },
-//   { id: String(Math.random()), image: require("../assets/images/img-4.jpg") },
-//   { id: String(Math.random()), image: require("../assets/images/img-5.jpg") },
-// ];
-
 const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
   const { top: paddingTop } = useSafeAreaInsets();
   const [activeSizeIndex, setActiveSizeIndex] = useState<number>(3);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const { item } = route.params;
   const { name, price, description, images } = item;
+  const { manageCart, isProductInCart } = useAppContext();
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ ...styles.container, paddingTop }}>
@@ -121,13 +116,29 @@ const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
               variant="title"
               style={{ marginVertical: 10 }}
             />
-            <RectButton style={styles.button}>
-              <Text
-                text="Add to cart"
-                variant="tiny"
-                style={{ color: "#fff" }}
-              />
-            </RectButton>
+            {isProductInCart(item) ? (
+              <RectButton
+                onPress={() => manageCart("REMOVE_FROM_CART", item)}
+                style={styles.button}
+              >
+                <Text
+                  text="Remove from cart"
+                  variant="tiny"
+                  style={{ color: "#fff" }}
+                />
+              </RectButton>
+            ) : (
+              <RectButton
+                onPress={() => manageCart("ADD_TO_CART", item)}
+                style={styles.button}
+              >
+                <Text
+                  text="Add to cart"
+                  variant="tiny"
+                  style={{ color: "#fff" }}
+                />
+              </RectButton>
+            )}
           </View>
         </View>
       </View>
