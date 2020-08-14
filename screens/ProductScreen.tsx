@@ -32,6 +32,8 @@ const ProductScreen = ({ navigation }: StackScreenProps<{}>) => {
   const { top: paddingTop } = useSafeAreaInsets();
   const [activeSizeIndex, setActiveSizeIndex] = useState<number>(3);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+  const [activeImages, setActiveImages] = useState([images[0]]);
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ ...styles.container, paddingTop }}>
@@ -141,8 +143,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   image: {
-    width: "80%",
-    height: "80%",
+    width: "90%",
+    height: "90%",
   },
   row: {
     width: "100%",

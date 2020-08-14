@@ -8,6 +8,9 @@ interface RatingProps {
 
 const Rating = ({ rating }: RatingProps) => {
   let data = [];
+  if (rating > 5) {
+    rating /= 2;
+  }
   for (let i = 0; i < Math.floor(rating); i++) {
     data.push("star");
   }
