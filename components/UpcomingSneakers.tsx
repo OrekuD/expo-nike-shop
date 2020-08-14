@@ -1,25 +1,60 @@
-import React, { useRef } from "react";
-import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
+import React, { useRef, useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Animated,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { width } from "../constants/Layout";
 import Text from "./Text";
 import { palewhite, lightblue } from "../constants/Colors";
+import { ProductObj } from "../types";
+import { BASE_URL, IMAGE_BASE_URL } from "../constants/Urls";
 
 interface UpcomingSneakersProps {}
 
 const BORDER_RADIUS = 10;
 
-const slides = [
-  { id: Math.random().toString() },
-  { id: Math.random().toString() },
-  { id: Math.random().toString() },
-  { id: Math.random().toString() },
-];
+// const slides = [
+//   { id: Math.random().toString() },
+//   { id: Math.random().toString() },
+//   { id: Math.random().toString() },
+//   { id: Math.random().toString() },
+// ];
 
 const ITEM_WIDTH = width * 0.35;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
 const UpcomingSneakers = (props: UpcomingSneakersProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
+
+  const [products, setProducts] = useState<Array<ProductObj>>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/products/shoes/recommended`);
+      const data = await response.json();
+      if (data.products.length !== 0) {
+        setProducts([{ key: "first" }, ...data.products, { key: "last" }]);
+      }
+    } catch (error) {
+      Alert.alert("Error");
+    }
+  };
+
+  if (products.length === 0) {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color="#121212" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -29,14 +64,14 @@ const UpcomingSneakers = (props: UpcomingSneakersProps) => {
         style={{ marginLeft: 20 }}
       />
       <Animated.FlatList
-        data={slides}
+        data={products}
         horizontal
         contentContainerStyle={{
           alignItems: "center",
           marginVertical: 15,
         }}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item: { id }, index }) => {
+        renderItem={({ item: { id, images }, index }) => {
           return (
             <Animated.View
               key={id}
@@ -45,7 +80,7 @@ const UpcomingSneakers = (props: UpcomingSneakersProps) => {
               <Text text="OCT 15" variant="subtitle" style={{ margin: 5 }} />
               <View style={styles.imageContainer}>
                 <Animated.Image
-                  source={require("../assets/images/4.jpg")}
+                  source={{ uri: `${IMAGE_BASE_URL + images[5].source}` }}
                   resizeMode="contain"
                   style={{ ...styles.image }}
                 />
