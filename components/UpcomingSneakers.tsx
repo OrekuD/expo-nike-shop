@@ -76,7 +76,7 @@ const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => {
           const { id, images } = item;
-          if (!images[5].source || images[5].source === "") {
+          if (!images[5].source) {
             return <View />;
           }
           return (

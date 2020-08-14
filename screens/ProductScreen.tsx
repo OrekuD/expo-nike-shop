@@ -91,6 +91,9 @@ const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({ item: { source }, index }) => {
+              if (!source) {
+                return <View />;
+              }
               return (
                 <TouchableOpacity
                   style={{

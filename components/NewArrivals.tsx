@@ -97,6 +97,10 @@ const NewArrivals = ({ navigation }: NewArrivalsProps) => {
             extrapolate: "clamp",
           });
 
+          if (!item.images[0].source) {
+            return <View />;
+          }
+
           if (id) {
             return <Card key={id} {...{ navigation, scale, opacity, item }} />;
           } else {

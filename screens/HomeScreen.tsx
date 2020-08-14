@@ -1,7 +1,13 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, Animated, TouchableOpacity } from "react-native";
 import { pink, blue, palewhite, lightblue } from "../constants/Colors";
-import { Header, Text, NewArrivals, UpcomingSneakers } from "../components";
+import {
+  Header,
+  Text,
+  NewArrivals,
+  UpcomingSneakers,
+  Searchbar,
+} from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width } from "../constants/Layout";
 import { RectButton } from "react-native-gesture-handler";
@@ -13,6 +19,7 @@ const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
     <View style={{ ...styles.container, paddingTop }}>
       <View style={{ flex: 1, backgroundColor: "rgba(255, 255, 255, 0)" }}>
         <Header home navigation={navigation} />
+        <Searchbar navigation={navigation} />
         <View style={{ marginVertical: 10 }}>
           <NewArrivals navigation={navigation} />
         </View>
