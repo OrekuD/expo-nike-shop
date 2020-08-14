@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
           <NewArrivals navigation={navigation} />
         </View>
         <View style={{ marginTop: 20 }}>
-          <UpcomingSneakers />
+          <UpcomingSneakers navigation={navigation} />
         </View>
       </View>
       <View style={styles.background}>

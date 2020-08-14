@@ -12,8 +12,11 @@ import Text from "./Text";
 import { palewhite, lightblue } from "../constants/Colors";
 import { ProductObj } from "../types";
 import { BASE_URL, IMAGE_BASE_URL } from "../constants/Urls";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-interface UpcomingSneakersProps {}
+interface UpcomingSneakersProps {
+  navigation: StackNavigationProp<{}>;
+}
 
 const BORDER_RADIUS = 10;
 
@@ -27,7 +30,7 @@ const BORDER_RADIUS = 10;
 const ITEM_WIDTH = width * 0.35;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
-const UpcomingSneakers = (props: UpcomingSneakersProps) => {
+const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const [products, setProducts] = useState<Array<ProductObj>>([]);
@@ -41,7 +44,7 @@ const UpcomingSneakers = (props: UpcomingSneakersProps) => {
       const response = await fetch(`${BASE_URL}/products/shoes/recommended`);
       const data = await response.json();
       if (data.products.length !== 0) {
-        setProducts([{ key: "first" }, ...data.products, { key: "last" }]);
+        setProducts(data.products);
       }
     } catch (error) {
       Alert.alert("Error");
@@ -71,21 +74,30 @@ const UpcomingSneakers = (props: UpcomingSneakersProps) => {
           marginVertical: 15,
         }}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item: { id, images }, index }) => {
+        renderItem={({ item, index }) => {
+          const { id, images } = item;
+          if (!images[5].source || images[5].source === "") {
+            return <View />;
+          }
           return (
-            <Animated.View
-              key={id}
-              style={{ ...styles.slide, marginLeft: index === 0 ? 20 : 0 }}
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Product", { item })}
             >
-              <Text text="OCT 15" variant="subtitle" style={{ margin: 5 }} />
-              <View style={styles.imageContainer}>
-                <Animated.Image
-                  source={{ uri: `${IMAGE_BASE_URL + images[5].source}` }}
-                  resizeMode="contain"
-                  style={{ ...styles.image }}
-                />
-              </View>
-            </Animated.View>
+              <Animated.View
+                key={id}
+                style={{ ...styles.slide, marginLeft: index === 0 ? 20 : 0 }}
+              >
+                <Text text="OCT 15" variant="subtitle" style={{ margin: 5 }} />
+                <View style={styles.imageContainer}>
+                  <Animated.Image
+                    source={{ uri: `${IMAGE_BASE_URL + images[5].source}` }}
+                    resizeMode="contain"
+                    style={{ ...styles.image }}
+                  />
+                </View>
+              </Animated.View>
+            </TouchableOpacity>
           );
         }}
       />
