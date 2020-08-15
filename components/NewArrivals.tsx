@@ -51,7 +51,7 @@ const NewArrivals = ({ navigation }: NewArrivalsProps) => {
       const data = await response.json();
       if (data.products.length !== 0) {
         setProducts([{ key: "first" }, ...data.products, { key: "last" }]);
-        addProducts(data.products);
+        // addProducts(data.products);
       }
     } catch (error) {
       Alert.alert("Error");

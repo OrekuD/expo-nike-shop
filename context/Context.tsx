@@ -1,5 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import { AppContext, CartObj, ProductObj } from "../types";
+import { BASE_URL } from "../constants/Urls";
+import { Alert } from "react-native";
 
 const Context = createContext<AppContext>({
   cart: [],
@@ -23,6 +25,24 @@ const Provider = ({ children }: Props) => {
     calculateCartTotal();
   }, [cart]);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const responseRecommended = await fetch(
+        `${BASE_URL}/products/shoes/recommended`
+      );
+      const response = await fetch(`${BASE_URL}/products/shoes`);
+      const dataRecommended = await responseRecommended.json();
+      const data = await response.json();
+      setAllProducts([...data.products, ...dataRecommended.products]);
+    } catch (error) {
+      Alert.alert("Error");
+    }
+  };
+
   const calculateCartTotal = () => {
     let total = 0;
     cart.forEach((item) => (total += item.total));
@@ -30,7 +50,8 @@ const Provider = ({ children }: Props) => {
   };
 
   const addProducts = (products: ProductObj[]) => {
-    setAllProducts([...allProducts, ...products]);
+    const updatatedProducts = [...allProducts, ...products];
+    setAllProducts(updatatedProducts);
   };
 
   const manageCart = (

@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,20 +14,21 @@ import { Header, Background, Text, ProductsCard } from "../components";
 import { width } from "../constants/Layout";
 import { RectButton } from "react-native-gesture-handler";
 import { useAppContext } from "../context/Context";
+import { blue } from "../constants/Colors";
 
 const SIZE = 40;
-
-const slides = [
-  { id: String(Math.random()) },
-  { id: String(Math.random()) },
-  { id: String(Math.random()) },
-  { id: String(Math.random()) },
-  { id: String(Math.random()) },
-];
 
 const ProductsScreen = ({ navigation }: DrawerScreenProps<{}>) => {
   const { top: paddingTop } = useSafeAreaInsets();
   const { allProducts } = useAppContext();
+
+  if (allProducts.length === 0) {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color={blue} />
+      </View>
+    );
+  }
   return (
     <>
       <RectButton style={styles.filterContainer}>
@@ -42,7 +44,7 @@ const ProductsScreen = ({ navigation }: DrawerScreenProps<{}>) => {
         <FlatList
           data={allProducts}
           ListHeaderComponent={() => (
-            <Header navigation={navigation} menuIcon />
+            <Header navigation={navigation} home cartIcon />
           )}
           keyExtractor={({ id }) => id}
           showsVerticalScrollIndicator={false}

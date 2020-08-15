@@ -39,7 +39,6 @@ const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
       const data = await response.json();
       if (data.products.length !== 0) {
         setProducts(data.products);
-        addProducts(data.products);
       }
     } catch (error) {
       Alert.alert("Error");
