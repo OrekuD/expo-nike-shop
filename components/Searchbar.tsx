@@ -3,9 +3,10 @@ import { TextInput, View, StyleSheet } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { width } from "../constants/Layout";
 import { Feather } from "@expo/vector-icons";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 interface SearchbarProps {
-  navigation: StackNavigationProp<{}>;
+  navigation: StackNavigationProp<{}> | DrawerNavigationProp<{}>;
 }
 
 const Searchbar = ({ navigation }: SearchbarProps) => {

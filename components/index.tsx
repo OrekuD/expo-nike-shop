@@ -7,3 +7,5 @@ export { default as Rating } from "./Rating";
 export { default as Searchbar } from "./Searchbar";
 export { default as CartItem } from "./Cart/CartItem";
 export { default as CartFooter } from "./Cart/CartFooter";
+export { default as Background } from "./Background";
+export { default as CustomDrawer } from "./CustomDrawer/CustomDrawer";

@@ -7,18 +7,20 @@ import {
   NewArrivals,
   UpcomingSneakers,
   Searchbar,
+  Background,
 } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width } from "../constants/Layout";
 import { RectButton } from "react-native-gesture-handler";
-import { StackScreenProps } from "@react-navigation/stack";
+import { DrawerScreenProps } from "@react-navigation/drawer";
 
-const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
-  const { top: paddingTop } = useSafeAreaInsets();
+const HomeScreen = ({ navigation }: DrawerScreenProps<{}>) => {
+  const { top: height } = useSafeAreaInsets();
   return (
-    <View style={{ ...styles.container, paddingTop }}>
+    <View style={{ ...styles.container }}>
+      <View style={{ height, backgroundColor: "#fff" }} />
       <View style={{ flex: 1, backgroundColor: "rgba(255, 255, 255, 0)" }}>
-        <Header home navigation={navigation} />
+        <Header home navigation={navigation} cartIcon />
         <Searchbar navigation={navigation} />
         <View style={{ marginVertical: 10 }}>
           <NewArrivals navigation={navigation} />
@@ -27,10 +29,7 @@ const HomeScreen = ({ navigation }: StackScreenProps<{}>) => {
           <UpcomingSneakers navigation={navigation} />
         </View>
       </View>
-      <View style={styles.background}>
-        <View style={styles.left} />
-        <View style={styles.right} />
-      </View>
+      <Background />
     </View>
   );
 };
@@ -40,18 +39,5 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  background: {
-    ...StyleSheet.absoluteFillObject,
-    flexDirection: "row",
-    zIndex: -1,
-  },
-  left: {
-    flex: 4,
-    backgroundColor: "#ffffff",
-  },
-  right: {
-    flex: 1.2,
-    backgroundColor: pink,
   },
 });

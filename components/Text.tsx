@@ -7,9 +7,10 @@ interface TextProps {
   style?: TextStyle;
   variant?: "default" | "title" | "tiny" | "subtitle";
   price?: boolean;
+  numberOfLines?: number;
 }
 
-const Text = ({ text, style, variant, price }: TextProps) => {
+const Text = ({ text, style, variant, price, numberOfLines }: TextProps) => {
   let textStyle;
   switch (variant) {
     case "default":
@@ -30,9 +31,17 @@ const Text = ({ text, style, variant, price }: TextProps) => {
   }
 
   if (price) {
-    return <RNText style={{ ...textStyle, ...style }}>&#8373; {text}</RNText>;
+    return (
+      <RNText style={{ ...textStyle, ...style }} numberOfLines={numberOfLines}>
+        &#8373; {text}
+      </RNText>
+    );
   }
-  return <RNText style={{ ...textStyle, ...style }}>{text}</RNText>;
+  return (
+    <RNText style={{ ...textStyle, ...style }} numberOfLines={numberOfLines}>
+      {text}
+    </RNText>
+  );
 };
 
 export default Text;

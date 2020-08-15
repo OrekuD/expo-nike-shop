@@ -14,6 +14,7 @@ import Card from "./Card";
 import { StackScreenProps, StackNavigationProp } from "@react-navigation/stack";
 import { BASE_URL } from "../constants/Urls";
 import { ProductObj } from "../types";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 const BORDER_RADIUS = 20;
 
@@ -31,7 +32,7 @@ const ITEM_WIDTH = width * 0.5;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
 interface NewArrivalsProps {
-  navigation: StackNavigationProp<{}>;
+  navigation: StackNavigationProp<{}> | DrawerNavigationProp<{}>;
 }
 
 const NewArrivals = ({ navigation }: NewArrivalsProps) => {

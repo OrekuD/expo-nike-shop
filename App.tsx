@@ -1,9 +1,12 @@
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Text, View, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
 import MainNavigation from "./navigation/Navigation";
-import { Provider } from "./context/Context";
+import { Provider, useAppContext } from "./context/Context";
 
 export default function App() {
   let [fontsLoaded] = useFonts({

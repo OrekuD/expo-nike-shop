@@ -34,7 +34,7 @@ const Card = ({ navigation, scale, opacity, item }: CardProps) => {
           />
         </View>
         <View style={styles.slideContent}>
-          <Text text={name} variant="subtitle" />
+          <Text text={name} variant="subtitle" numberOfLines={1} />
           <Text text={price} variant="subtitle" price />
           {isProductInCart(item) ? (
             <TouchableOpacity
@@ -50,7 +50,7 @@ const Card = ({ navigation, scale, opacity, item }: CardProps) => {
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              onPress={() => manageCart("ADD_TO_CART", item)}
+              onPress={() => manageCart("ADD_TO_CART", { ...item, size: 9 })}
               style={styles.button}
               activeOpacity={0.8}
             >

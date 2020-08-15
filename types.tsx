@@ -1,13 +1,3 @@
-// export type RootStackParamList = {
-//   Root: undefined;
-//   NotFound: undefined;
-// };
-
-// export type BottomTabParamList = {
-//   TabOne: undefined;
-//   TabTwo: undefined;
-// };
-
 export interface AppContext {
   cart: CartObj[];
   cartTotal: number;
@@ -23,16 +13,20 @@ export interface AppContext {
   isProductInCart: (product: ProductObj) => boolean;
 }
 
+export type DrawerParamList = {
+  Home: undefined;
+  Cart: undefined;
+};
+
 export type HomeStackParamList = {
   Home: undefined;
   Product: undefined;
-  Cart: undefined;
 };
 
 export interface CartObj extends ProductObj {
   count: number;
   total: number;
-  size?: number;
+  size: number;
 }
 
 export interface ProductObj {

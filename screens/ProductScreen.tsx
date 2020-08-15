@@ -23,17 +23,17 @@ const SIZE = width * 0.135;
 const IMAGE_THUMBNAIL_SIZE = width * 0.25;
 
 const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
-  const { top: paddingTop } = useSafeAreaInsets();
   const [activeSizeIndex, setActiveSizeIndex] = useState<number>(3);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const { item } = route.params;
   const { name, price, description, images } = item;
   const { manageCart, isProductInCart } = useAppContext();
+  const { top: paddingTop } = useSafeAreaInsets();
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ ...styles.container, paddingTop }}>
-        <Header navigation={navigation} />
+        <Header navigation={navigation} productScreen />
         <View style={styles.imageContainer}>
           <Image
             source={{
@@ -129,7 +129,12 @@ const ProductScreen = ({ navigation, route }: StackScreenProps<{}>) => {
               </RectButton>
             ) : (
               <RectButton
-                onPress={() => manageCart("ADD_TO_CART", item)}
+                onPress={() =>
+                  manageCart("ADD_TO_CART", {
+                    ...item,
+                    size: sizes[activeSizeIndex],
+                  })
+                }
                 style={styles.button}
               >
                 <Text
@@ -152,6 +157,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    paddingBottom: 20,
   },
   imageContainer: {
     width: width,

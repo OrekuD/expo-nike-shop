@@ -13,26 +13,18 @@ import { palewhite, lightblue } from "../constants/Colors";
 import { ProductObj } from "../types";
 import { BASE_URL, IMAGE_BASE_URL } from "../constants/Urls";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 interface UpcomingSneakersProps {
-  navigation: StackNavigationProp<{}>;
+  navigation: StackNavigationProp<{}> | DrawerNavigationProp<{}>;
 }
 
 const BORDER_RADIUS = 10;
-
-// const slides = [
-//   { id: Math.random().toString() },
-//   { id: Math.random().toString() },
-//   { id: Math.random().toString() },
-//   { id: Math.random().toString() },
-// ];
 
 const ITEM_WIDTH = width * 0.35;
 const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
 const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
-  const scrollX = useRef(new Animated.Value(0)).current;
-
   const [products, setProducts] = useState<Array<ProductObj>>([]);
 
   useEffect(() => {

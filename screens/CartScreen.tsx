@@ -1,22 +1,21 @@
-import * as React from "react";
+import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Header, CartFooter, CartItem, Text } from "../components";
-import { StackScreenProps } from "@react-navigation/stack";
-import { width } from "../constants/Layout";
+import { Header, CartFooter, CartItem, Text, Background } from "../components";
 import { useAppContext } from "../context/Context";
+import { DrawerScreenProps } from "@react-navigation/drawer";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const CartScreen = ({ navigation }: StackScreenProps<{}>) => {
-  const { top: paddingTop } = useSafeAreaInsets();
-
+const CartScreen = ({ navigation }: DrawerScreenProps<{}>) => {
   const { cart } = useAppContext();
+  const { top: paddingTop } = useSafeAreaInsets();
 
   return (
     <View style={{ ...styles.container, paddingTop }}>
-      <Header navigation={navigation} cart />
+      <Background />
+      <Header navigation={navigation} menuIcon />
       {cart.length === 0 ? (
         <View style={styles.emptyCartContainer}>
-          <Text text="Empty cart" />
+          <Text text="Your cart is empty" />
         </View>
       ) : (
         <>
@@ -27,7 +26,6 @@ const CartScreen = ({ navigation }: StackScreenProps<{}>) => {
             )}
             keyExtractor={({ id }) => id}
             renderItem={({ item }) => <CartItem item={item} />}
-            // contentContainerStyle={{ alignItems: "center" }}
           />
           <CartFooter />
         </>

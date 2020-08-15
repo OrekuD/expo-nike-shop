@@ -15,13 +15,15 @@ interface CartItemProps {
 const IMAGE_CONTAINER_SIZE = width * 0.35;
 
 const CartItem = ({ item }: CartItemProps) => {
-  const { name, images, count, price } = item;
+  const { name, images, count, price, size } = item;
   const { manageCart } = useAppContext();
+  const source = images[5].source ? images[5].source : images[0].source;
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${IMAGE_BASE_URL + images[0].source}` }}
+          source={{ uri: `${IMAGE_BASE_URL + source}` }}
           style={{ width: "95%", height: "95%" }}
           resizeMode="contain"
         />
