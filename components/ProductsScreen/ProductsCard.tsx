@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import { ProductObj } from "../../types";
 import { width } from "../../constants/Layout";
-import { palewhite, deepblue, blue } from "../../constants/Colors";
+import { palewhite, blue } from "../../constants/Colors";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import Text from "../Text";
 import { IMAGE_BASE_URL } from "../../constants/Urls";
