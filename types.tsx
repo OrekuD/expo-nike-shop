@@ -1,5 +1,7 @@
 export interface AppContext {
   cart: CartObj[];
+  allProducts: ProductObj[];
+  addProducts: (products: ProductObj[]) => void;
   cartTotal: number;
   manageCart: (
     action:
@@ -16,10 +18,16 @@ export interface AppContext {
 export type DrawerParamList = {
   Home: undefined;
   Cart: undefined;
+  Products: undefined;
 };
 
 export type HomeStackParamList = {
   Home: undefined;
+  Product: undefined;
+};
+
+export type ProductsStackParamList = {
+  Products: undefined;
   Product: undefined;
 };
 

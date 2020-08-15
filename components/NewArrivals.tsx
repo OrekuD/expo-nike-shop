@@ -15,6 +15,7 @@ import { StackScreenProps, StackNavigationProp } from "@react-navigation/stack";
 import { BASE_URL } from "../constants/Urls";
 import { ProductObj } from "../types";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useAppContext } from "../context/Context";
 
 const BORDER_RADIUS = 20;
 
@@ -38,6 +39,7 @@ interface NewArrivalsProps {
 const NewArrivals = ({ navigation }: NewArrivalsProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [products, setProducts] = useState<Array<ProductObj>>([]);
+  const { addProducts } = useAppContext();
 
   useEffect(() => {
     fetchData();
@@ -49,6 +51,7 @@ const NewArrivals = ({ navigation }: NewArrivalsProps) => {
       const data = await response.json();
       if (data.products.length !== 0) {
         setProducts([{ key: "first" }, ...data.products, { key: "last" }]);
+        addProducts(data.products);
       }
     } catch (error) {
       Alert.alert("Error");

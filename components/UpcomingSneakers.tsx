@@ -14,6 +14,7 @@ import { ProductObj } from "../types";
 import { BASE_URL, IMAGE_BASE_URL } from "../constants/Urls";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useAppContext } from "../context/Context";
 
 interface UpcomingSneakersProps {
   navigation: StackNavigationProp<{}> | DrawerNavigationProp<{}>;
@@ -26,6 +27,7 @@ const SPACER_WIDTH = (width - ITEM_WIDTH) / 2;
 
 const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
   const [products, setProducts] = useState<Array<ProductObj>>([]);
+  const { addProducts } = useAppContext();
 
   useEffect(() => {
     fetchData();
@@ -37,6 +39,7 @@ const UpcomingSneakers = ({ navigation }: UpcomingSneakersProps) => {
       const data = await response.json();
       if (data.products.length !== 0) {
         setProducts(data.products);
+        addProducts(data.products);
       }
     } catch (error) {
       Alert.alert("Error");

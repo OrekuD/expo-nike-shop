@@ -23,7 +23,7 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
       <View style={styles.profile}>
         <View style={styles.profileImage}></View>
         <Text text="Hey" variant="subtitle" style={{ color: "#888590" }} />
-        <Text text="Afshin T2Y" variant="title" style={{ color: "#C6C6C6" }} />
+        <Text text="Afshin T2Y" variant="title" style={{ color: "#D7D7D7" }} />
       </View>
       <View style={styles.drawerItems}>
         {screens.map(({ name, key }, index) => (
@@ -42,14 +42,14 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
             <Text
               text={name}
               variant="tiny"
-              style={{ color: state.index === index ? activeColor : "#C6C6C6" }}
+              style={{ color: state.index === index ? activeColor : "#D7D7D7" }}
             />
           </TouchableOpacity>
         ))}
       </View>
       <View style={styles.separator} />
       <TouchableOpacity activeOpacity={0.8} style={{ ...styles.item }}>
-        <Text text="Sign out" variant="tiny" style={{ color: "#C6C6C6" }} />
+        <Text text="Sign out" variant="tiny" style={{ color: "#D7D7D7" }} />
       </TouchableOpacity>
     </View>
   );

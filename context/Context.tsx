@@ -3,6 +3,8 @@ import { AppContext, CartObj, ProductObj } from "../types";
 
 const Context = createContext<AppContext>({
   cart: [],
+  allProducts: [],
+  addProducts: () => {},
   manageCart: () => {},
   isProductInCart: () => false,
   cartTotal: 0,
@@ -14,6 +16,7 @@ interface Props {
 
 const Provider = ({ children }: Props) => {
   const [cart, setCart] = useState<CartObj[]>([]);
+  const [allProducts, setAllProducts] = useState<ProductObj[]>([]);
   const [cartTotal, setCartTotal] = useState<number>(0);
 
   useEffect(() => {
@@ -24,6 +27,10 @@ const Provider = ({ children }: Props) => {
     let total = 0;
     cart.forEach((item) => (total += item.total));
     setCartTotal(Number(total.toFixed(2)));
+  };
+
+  const addProducts = (products: ProductObj[]) => {
+    setAllProducts([...allProducts, ...products]);
   };
 
   const manageCart = (
@@ -99,6 +106,8 @@ const Provider = ({ children }: Props) => {
     manageCart,
     isProductInCart,
     cartTotal,
+    allProducts,
+    addProducts,
   };
   return <Context.Provider value={state}>{children}</Context.Provider>;
 };
