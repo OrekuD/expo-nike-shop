@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { deepblue } from "../../constants/Colors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -58,9 +58,15 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
   return (
     <View style={{ ...styles.container, paddingTop }}>
       <View style={styles.profile}>
-        <View style={styles.profileImage}></View>
+        <View style={styles.profileImage}>
+          <Image
+            source={require("../../assets/images/user.png")}
+            resizeMode="cover"
+            style={{ height: "100%", width: "100%" }}
+          />
+        </View>
         <Text text="Hey" variant="subtitle" style={{ color: "#888590" }} />
-        <Text text="Afshin T2Y" variant="title" style={{ color: "#D7D7D7" }} />
+        <Text text="David" variant="title" style={{ color: "#D7D7D7" }} />
       </View>
       <View style={styles.drawerItems}>
         {screens.map(({ name }, index) => (
@@ -115,9 +121,11 @@ const styles = StyleSheet.create({
     width: PROFILE_IMAGE_SIZE,
     height: PROFILE_IMAGE_SIZE,
     borderRadius: 10,
-    backgroundColor: "yellow",
+    backgroundColor: inactiveColor,
     marginTop: 20,
     marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   drawerItems: {
     marginTop: 30,

@@ -60,8 +60,8 @@ const DrawerNavigation = () => {
       drawerStyle={{ width: width * 0.8 }}
     >
       <Drawer.Screen name="Home" component={HomeNavigation} />
-      <Drawer.Screen name="Cart" component={CartScreen} />
       <Drawer.Screen name="Products" component={ProductsNavigation} />
+      <Drawer.Screen name="Cart" component={CartScreen} />
     </Drawer.Navigator>
   );
 };
