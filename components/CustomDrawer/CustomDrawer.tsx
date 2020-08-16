@@ -5,18 +5,55 @@ import { deepblue } from "../../constants/Colors";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { width, height } from "../../constants/Layout";
 import Text from "../Text";
+import {
+  FontAwesome5,
+  Feather,
+  MaterialCommunityIcons,
+  Ionicons,
+} from "@expo/vector-icons";
 
 interface CustomDrawerProps {
   props: DrawerContentComponentProps;
 }
 
 const PROFILE_IMAGE_SIZE = 60;
+const activeColor = "#F66A5C";
+const inactiveColor = "#D7D7D7";
+
+const Icon = ({ name, isActive }: { name: string; isActive: boolean }) => {
+  if (name === "Home") {
+    return (
+      <Feather
+        name="home"
+        color={isActive ? activeColor : inactiveColor}
+        size={20}
+      />
+    );
+  } else if (name === "Cart") {
+    return (
+      <MaterialCommunityIcons
+        name="shopping"
+        color={isActive ? activeColor : inactiveColor}
+        size={20}
+      />
+    );
+  } else if (name === "Products") {
+    return (
+      <MaterialCommunityIcons
+        name="fireplace-off"
+        color={isActive ? activeColor : inactiveColor}
+        size={20}
+      />
+    );
+  } else {
+    return null;
+  }
+};
 
 const CustomDrawer = ({ props }: CustomDrawerProps) => {
   const { navigation, state } = props;
   const screens = state.routes;
   const { top: paddingTop } = useSafeAreaInsets();
-  const activeColor = "#F66A5C";
 
   return (
     <View style={{ ...styles.container, paddingTop }}>
@@ -26,9 +63,9 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
         <Text text="Afshin T2Y" variant="title" style={{ color: "#D7D7D7" }} />
       </View>
       <View style={styles.drawerItems}>
-        {screens.map(({ name, key }, index) => (
+        {screens.map(({ name }, index) => (
           <TouchableOpacity
-            key={key}
+            key={name}
             activeOpacity={0.8}
             onPress={() => navigation.navigate(name)}
             style={{
@@ -39,6 +76,9 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
                   : "transparent",
             }}
           >
+            <View style={styles.icon}>
+              <Icon name={name} isActive={state.index === index} />
+            </View>
             <Text
               text={name}
               variant="tiny"
@@ -49,6 +89,9 @@ const CustomDrawer = ({ props }: CustomDrawerProps) => {
       </View>
       <View style={styles.separator} />
       <TouchableOpacity activeOpacity={0.8} style={{ ...styles.item }}>
+        <View style={styles.icon}>
+          <Ionicons name="md-log-out" color={inactiveColor} size={24} />
+        </View>
         <Text text="Sign out" variant="tiny" style={{ color: "#D7D7D7" }} />
       </TouchableOpacity>
     </View>
@@ -94,5 +137,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#888590",
     marginTop: 10,
     marginBottom: 30,
+  },
+  icon: {
+    marginLeft: 15,
+    marginRight: 25,
   },
 });
