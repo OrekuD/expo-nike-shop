@@ -91,7 +91,6 @@ const Provider = ({ children }: Props) => {
         updatedProduct.total = Number(
           (updatedProduct.count * updatedProduct.price).toFixed(2)
         );
-        console.log(updatedProduct.total);
         tempCart[updatedProductIndex] = updatedProduct;
         setCart(tempCart);
         break;
