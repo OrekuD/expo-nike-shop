@@ -14,7 +14,6 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-navigation/bottom-tabs": "^5.6.1",
     "@react-navigation/drawer": "^5.8.5",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
@@ -22,10 +21,6 @@
     "expo-asset": "~8.1.7",
     "expo-constants": "~9.1.1",
     "expo-font": "~8.2.1",
-    "expo-linking": "^1.0.1",
-    "expo-splash-screen": "~0.3.1",
-    "expo-status-bar": "^1.0.2",
-    "expo-web-browser": "~8.3.1",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",

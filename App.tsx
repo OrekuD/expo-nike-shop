@@ -12,7 +12,6 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     OswaldR: require("./assets/fonts/Oswald-Regular.ttf"),
     OswaldB: require("./assets/fonts/Oswald-Medium.ttf"),
-    OswaldL: require("./assets/fonts/Oswald-Light.ttf"),
   });
 
   if (!fontsLoaded) {

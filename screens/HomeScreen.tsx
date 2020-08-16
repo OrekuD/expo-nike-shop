@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import {
   Header,
   NewArrivals,
@@ -13,7 +13,7 @@ import { DrawerScreenProps } from "@react-navigation/drawer";
 const HomeScreen = ({ navigation }: DrawerScreenProps<{}>) => {
   const { top: height } = useSafeAreaInsets();
   return (
-    <View style={{ ...styles.container }}>
+    <View style={{ flex: 1 }}>
       <View style={{ height, backgroundColor: "#fff" }} />
       <ScrollView>
         <View style={{ flex: 1, backgroundColor: "rgba(255, 255, 255, 0)" }}>
@@ -33,9 +33,3 @@ const HomeScreen = ({ navigation }: DrawerScreenProps<{}>) => {
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
